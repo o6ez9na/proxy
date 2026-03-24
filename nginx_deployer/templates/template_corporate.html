@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SpeedCheck — Тест скорости интернета</title>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --blue: #0ea5e9;
+        --dark: #0f172a;
+        --card: #1e293b;
+      }
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background: var(--dark);
+        color: #e2e8f0;
+        min-height: 100vh;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.2rem 3rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .logo {
+        font-size: 1.3rem;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+      }
+      .logo span {
+        color: var(--blue);
+      }
+      header nav a {
+        color: #64748b;
+        text-decoration: none;
+        margin-left: 1.5rem;
+        font-size: 0.85rem;
+        transition: color 0.2s;
+      }
+      header nav a:hover {
+        color: #e2e8f0;
+      }
+      .main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 4rem 2rem;
+      }
+      .tagline {
+        font-size: 0.8rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--blue);
+        margin-bottom: 1rem;
+      }
+      .main h1 {
+        font-size: 2.8rem;
+        font-weight: 800;
+        text-align: center;
+        margin-bottom: 0.5rem;
+      }
+      .main p {
+        color: #64748b;
+        text-align: center;
+        margin-bottom: 3rem;
+        font-size: 0.95rem;
+      }
+      /* Gauge */
+      .gauge-wrap {
+        position: relative;
+        width: 260px;
+        height: 260px;
+        margin-bottom: 2rem;
+      }
+      .gauge-wrap svg {
+        width: 100%;
+        height: 100%;
+        transform: rotate(-135deg);
+      }
+      .gauge-bg {
+        fill: none;
+        stroke: rgba(255, 255, 255, 0.06);
+        stroke-width: 14;
+        stroke-linecap: round;
+      }
+      .gauge-bar {
+        fill: none;
+        stroke: var(--blue);
+        stroke-width: 14;
+        stroke-linecap: round;
+        stroke-dasharray: 0 314;
+        transition: stroke-dasharray 2.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        filter: drop-shadow(0 0 8px rgba(14, 165, 233, 0.7));
+      }
+      .gauge-center {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .speed-num {
+        font-size: 3.5rem;
+        font-weight: 900;
+        color: #fff;
+        line-height: 1;
+      }
+      .speed-unit {
+        font-size: 0.8rem;
+        color: #64748b;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+      .speed-label {
+        font-size: 0.75rem;
+        color: #475569;
+        margin-top: 0.2rem;
+      }
+      .test-btn {
+        background: var(--blue);
+        color: #fff;
+        border: none;
+        padding: 1rem 3.5rem;
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        cursor: pointer;
+        border-radius: 4px;
+        transition:
+          background 0.2s,
+          box-shadow 0.2s;
+      }
+      .test-btn:hover {
+        background: #0284c7;
+        box-shadow: 0 0 20px rgba(14, 165, 233, 0.35);
+      }
+      .test-btn:disabled {
+        background: #334155;
+        cursor: not-allowed;
+      }
+      .results {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        background: rgba(255, 255, 255, 0.05);
+        max-width: 520px;
+        width: 100%;
+        margin-top: 2.5rem;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .res-item {
+        background: var(--card);
+        padding: 1.5rem 1rem;
+        text-align: center;
+      }
+      .res-val {
+        font-size: 1.6rem;
+        font-weight: 800;
+        color: var(--blue);
+      }
+      .res-label {
+        font-size: 0.72rem;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-top: 0.2rem;
+      }
+      .res-val.dim {
+        color: #475569;
+      }
+      .info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 1rem;
+        max-width: 860px;
+        width: 100%;
+        margin-top: 3rem;
+      }
+      .info-card {
+        background: var(--card);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        padding: 1.5rem;
+        border-radius: 8px;
+      }
+      .info-card h3 {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #64748b;
+        margin-bottom: 0.5rem;
+      }
+      .info-card p {
+        font-size: 0.9rem;
+        color: #94a3b8;
+        line-height: 1.5;
+      }
+      footer {
+        text-align: center;
+        padding: 2rem;
+        font-size: 0.75rem;
+        color: #1e293b;
+        border-top: 1px solid rgba(255, 255, 255, 0.04);
+        margin-top: 4rem;
+      }
+      footer span {
+        color: var(--blue);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo">Speed<span>Check</span></div>
+      <nav>
+        <a href="#">История</a>
+        <a href="#">Серверы</a>
+        <a href="#">Провайдеры</a>
+        <a href="#">О сервисе</a>
+      </nav>
+    </header>
+    <div class="main">
+      <div class="tagline">&#9679; Проверка соединения</div>
+      <h1>Замерь скорость своего интернета</h1>
+      <p>
+        Нажми кнопку — мы проверим загрузку, отдачу и пинг до ближайшего сервера
+      </p>
+      <div class="gauge-wrap">
+        <svg viewBox="0 0 100 100">
+          <circle
+            class="gauge-bg"
+            cx="50"
+            cy="50"
+            r="42"
+            stroke-dasharray="220 314"
+          />
+          <circle class="gauge-bar" id="gaugeBar" cx="50" cy="50" r="42" />
+        </svg>
+        <div class="gauge-center">
+          <div class="speed-num" id="speedNum">—</div>
+          <div class="speed-unit">Мбит/с</div>
+          <div class="speed-label" id="speedLabel">Нажмите старт</div>
+        </div>
+      </div>
+      <button class="test-btn" id="startBtn" onclick="runTest()">
+        Начать тест
+      </button>
+      <div class="results">
+        <div class="res-item">
+          <div class="res-val dim" id="dlVal">—</div>
+          <div class="res-label">&#8595; Загрузка</div>
+        </div>
+        <div class="res-item">
+          <div class="res-val dim" id="ulVal">—</div>
+          <div class="res-label">&#8593; Отдача</div>
+        </div>
+        <div class="res-item">
+          <div class="res-val dim" id="pingVal">—</div>
+          <div class="res-label">&#9711; Пинг, мс</div>
+        </div>
+      </div>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>Сервер</h3>
+          <p>{{DOMAIN}} — Москва, RU</p>
+        </div>
+        <div class="info-card">
+          <h3>Протокол</h3>
+          <p>HTTPS / HTTP2 · TLS 1.3</p>
+        </div>
+        <div class="info-card">
+          <h3>Как работает</h3>
+          <p>
+            Тест загружает и отправляет данные на приближённый сервер, замеряя
+            реальную пропускную способность.
+          </p>
+        </div>
+        <div class="info-card">
+          <h3>Что нормально</h3>
+          <p>
+            >100 Мбит/с для домашнего интернета. Пинг до 20 мс — отлично для
+            игр.
+          </p>
+        </div>
+      </div>
+    </div>
+    <footer>&copy; 2026 <span>SpeedCheck</span> — {{DOMAIN}}</footer>
+    <script>
+      function runTest() {
+        const btn = document.getElementById("startBtn");
+        const bar = document.getElementById("gaugeBar");
+        const num = document.getElementById("speedNum");
+        const lbl = document.getElementById("speedLabel");
+        const dl = document.getElementById("dlVal");
+        const ul = document.getElementById("ulVal");
+        const pg = document.getElementById("pingVal");
+        btn.disabled = true;
+        dl.textContent = ul.textContent = pg.textContent = "...";
+        dl.className = ul.className = pg.className = "res-val dim";
+        lbl.textContent = "Замеряем...";
+        const target = Math.floor(Math.random() * 700 + 80);
+        const maxDash = 220; // arc length matching stroke-dasharray of bg
+        let current = 0;
+        const step = () => {
+          current = Math.min(current + target / 60, target);
+          const frac = Math.min(current / 1000, 1);
+          bar.style.strokeDasharray = frac * maxDash + " 314";
+          num.textContent = Math.round(current);
+          if (current < target) {
+            requestAnimationFrame(step);
+          } else {
+            lbl.textContent = "Готово";
+            dl.textContent = target;
+            ul.textContent = Math.floor(target * 0.55);
+            pg.textContent = Math.floor(Math.random() * 12 + 4);
+            dl.className = ul.className = pg.className = "res-val";
+            btn.disabled = false;
+            btn.textContent = "Повторить тест";
+          }
+        };
+        setTimeout(() => requestAnimationFrame(step), 400);
+      }
+    </script>
+  </body>
+</html>

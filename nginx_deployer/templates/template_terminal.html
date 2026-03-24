@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BREW.SH — Кофейня {{DOMAIN}}</title>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --bean: #6f4e37;
+        --espresso: #2c1a0e;
+        --milk: #fdf8f4;
+        --latte: #d4a96a;
+        --warm: #f5ede0;
+      }
+      body {
+        font-family: "Georgia", serif;
+        background: var(--milk);
+        color: var(--espresso);
+      }
+      /* top bar */
+      .topbar {
+        background: var(--espresso);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.1rem 3rem;
+      }
+      .top-logo {
+        font-size: 1.4rem;
+        font-weight: 900;
+        color: var(--latte);
+        letter-spacing: 1px;
+        font-family: "Courier New", monospace;
+      }
+      .top-logo span {
+        color: #fff;
+      }
+      .topbar nav a {
+        color: #a08060;
+        text-decoration: none;
+        margin-left: 2rem;
+        font-size: 0.82rem;
+        font-family: sans-serif;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        transition: color 0.2s;
+      }
+      .topbar nav a:hover {
+        color: var(--latte);
+      }
+      /* hero */
+      .hero {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        min-height: 480px;
+      }
+      .hero-text {
+        background: var(--warm);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 5rem 4rem;
+      }
+      .hero-eyebrow {
+        font-family: "Courier New", monospace;
+        font-size: 0.75rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--bean);
+        margin-bottom: 1.2rem;
+      }
+      .hero-text h1 {
+        font-size: 3.2rem;
+        line-height: 1.15;
+        margin-bottom: 1rem;
+      }
+      .hero-text h1 em {
+        font-style: italic;
+        color: var(--bean);
+      }
+      .hero-text p {
+        font-family: sans-serif;
+        font-size: 0.95rem;
+        color: #7a5c40;
+        line-height: 1.7;
+        margin-bottom: 2rem;
+        max-width: 380px;
+      }
+      .hero-btn {
+        display: inline-block;
+        background: var(--bean);
+        color: #fff;
+        padding: 0.85rem 2.2rem;
+        text-decoration: none;
+        font-family: sans-serif;
+        font-size: 0.85rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        border-radius: 2px;
+        transition: background 0.2s;
+      }
+      .hero-btn:hover {
+        background: var(--espresso);
+      }
+      .hero-visual {
+        background: var(--espresso);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 9rem;
+        border-left: 4px solid var(--latte);
+      }
+      /* menu */
+      .section {
+        max-width: 1050px;
+        margin: 0 auto;
+        padding: 4rem 3rem;
+      }
+      .sec-head {
+        margin-bottom: 2.5rem;
+      }
+      .sec-head h2 {
+        font-size: 1.6rem;
+        margin-bottom: 0.2rem;
+      }
+      .sec-head h2 span {
+        color: var(--bean);
+      }
+      .sec-line {
+        width: 40px;
+        height: 2px;
+        background: var(--latte);
+      }
+      .drinks-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 1.2rem;
+      }
+      .drink-card {
+        background: #fff;
+        border-radius: 6px;
+        padding: 1.6rem;
+        box-shadow: 0 2px 12px rgba(111, 78, 55, 0.07);
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+      .drink-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(111, 78, 55, 0.12);
+      }
+      .drink-icon {
+        font-size: 2.5rem;
+        margin-bottom: 0.8rem;
+      }
+      .drink-name {
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 0.2rem;
+      }
+      .drink-note {
+        font-family: sans-serif;
+        font-size: 0.82rem;
+        color: #9e7a5a;
+        line-height: 1.5;
+        margin-bottom: 0.8rem;
+      }
+      .drink-price {
+        font-size: 1rem;
+        font-weight: 900;
+        color: var(--bean);
+        font-family: sans-serif;
+      }
+      /* quote banner */
+      .quote {
+        background: var(--bean);
+        color: #fff;
+        padding: 4rem 3rem;
+        text-align: center;
+      }
+      .quote blockquote {
+        font-size: 1.6rem;
+        line-height: 1.5;
+        font-style: italic;
+        max-width: 600px;
+        margin: 0 auto 1rem;
+      }
+      .quote cite {
+        font-family: sans-serif;
+        font-size: 0.8rem;
+        opacity: 0.6;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+      /* wifi banner */
+      .wifi {
+        background: var(--warm);
+        padding: 2rem 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 3rem;
+        flex-wrap: wrap;
+        border-top: 1px solid #e8ddd0;
+        border-bottom: 1px solid #e8ddd0;
+      }
+      .wifi-item {
+        text-align: center;
+      }
+      .wifi-item .wi {
+        font-size: 2rem;
+        margin-bottom: 0.3rem;
+      }
+      .wifi-label {
+        font-family: sans-serif;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #9e7a5a;
+      }
+      .wifi-val {
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--espresso);
+      }
+      footer {
+        background: var(--espresso);
+        color: #5a3e2b;
+        text-align: center;
+        padding: 2rem;
+        font-family: sans-serif;
+        font-size: 0.78rem;
+      }
+      footer span {
+        color: var(--latte);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="top-logo">BREW<span>.SH</span></div>
+      <nav>
+        <a href="#">Напитки</a>
+        <a href="#">Еда</a>
+        <a href="#">О нас</a>
+        <a href="#">Адреса</a>
+      </nav>
+    </div>
+    <div class="hero">
+      <div class="hero-text">
+        <div class="hero-eyebrow">&#9749; Авторский кофе</div>
+        <h1>Место, где<br /><em>хочется остаться</em><br />подольше</h1>
+        <p>
+          Моносорта со всего мира, альтернативные методы заваривания и уютная
+          атмосфера для работы или отдыха.
+        </p>
+        <a href="#menu" class="hero-btn">Смотреть меню</a>
+      </div>
+      <div class="hero-visual">&#9749;</div>
+    </div>
+    <div class="wifi">
+      <div class="wifi-item">
+        <div class="wi">📶</div>
+        <div class="wifi-label">Wi-Fi</div>
+        <div class="wifi-val">brewsh_free</div>
+      </div>
+      <div class="wifi-item">
+        <div class="wi">🔋</div>
+        <div class="wifi-label">Розетки</div>
+        <div class="wifi-val">На каждом месте</div>
+      </div>
+      <div class="wifi-item">
+        <div class="wi">🕐</div>
+        <div class="wifi-label">Режим работы</div>
+        <div class="wifi-val">08:00 — 23:00</div>
+      </div>
+      <div class="wifi-item">
+        <div class="wi">📍</div>
+        <div class="wifi-label">Адрес</div>
+        <div class="wifi-val">{{DOMAIN}}</div>
+      </div>
+    </div>
+    <div class="section" id="menu">
+      <div class="sec-head">
+        <h2>Наши <span>Напитки</span></h2>
+        <div class="sec-line"></div>
+      </div>
+      <div class="drinks-grid">
+        <div class="drink-card">
+          <div class="drink-icon">☕</div>
+          <div class="drink-name">Эспрессо</div>
+          <div class="drink-note">
+            Ristretto-формат, Эфиопия Сидамо, 100% арабика
+          </div>
+          <div class="drink-price">160 ₽</div>
+        </div>
+        <div class="drink-card">
+          <div class="drink-icon">🥛</div>
+          <div class="drink-name">Флэт Уайт</div>
+          <div class="drink-note">
+            Двойной шот + бархатная текстурированная альтмолочка
+          </div>
+          <div class="drink-price">250 ₽</div>
+        </div>
+        <div class="drink-card">
+          <div class="drink-icon">🧋</div>
+          <div class="drink-name">Матча Латте</div>
+          <div class="drink-note">
+            Церемониальная матча, овсяное молоко, мёд по желанию
+          </div>
+          <div class="drink-price">290 ₽</div>
+        </div>
+        <div class="drink-card">
+          <div class="drink-icon">🍵</div>
+          <div class="drink-name">Пуровер V60</div>
+          <div class="drink-note">
+            Кения АА, виноград и чёрная смородина в послевкусии
+          </div>
+          <div class="drink-price">320 ₽</div>
+        </div>
+        <div class="drink-card">
+          <div class="drink-icon">🧊</div>
+          <div class="drink-name">Айс Нитро Колд</div>
+          <div class="drink-note">
+            18-часовая холодная экстракция, настоянная на азоте
+          </div>
+          <div class="drink-price">350 ₽</div>
+        </div>
+        <div class="drink-card">
+          <div class="drink-icon">🍫</div>
+          <div class="drink-name">Cocoa Dark</div>
+          <div class="drink-note">
+            72% бельгийский шоколад, кокосовое молоко, щепотка соли
+          </div>
+          <div class="drink-price">270 ₽</div>
+        </div>
+      </div>
+    </div>
+    <div class="quote">
+      <blockquote>
+        «Первый глоток кофе утром — это не привычка. Это ритуал.»
+      </blockquote>
+      <cite>— BREW.SH, {{DOMAIN}}</cite>
+    </div>
+    <footer>&copy; 2026 <span>BREW.SH</span> — {{DOMAIN}}</footer>
+  </body>
+</html>

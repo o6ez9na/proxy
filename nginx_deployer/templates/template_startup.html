@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SAKURA SUSHI — Роллы и суши {{DOMAIN}}</title>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --red: #c0392b;
+        --cream: #faf8f4;
+        --dark: #1a1209;
+        --sand: #f5ede0;
+      }
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background: var(--cream);
+        color: var(--dark);
+      }
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.2rem 3rem;
+        background: var(--dark);
+      }
+      .logo {
+        color: #fff;
+        font-size: 1.5rem;
+        font-weight: 800;
+        letter-spacing: 1px;
+      }
+      .logo span {
+        color: var(--red);
+      }
+      nav ul {
+        list-style: none;
+        display: flex;
+        gap: 2rem;
+      }
+      nav ul a {
+        color: #888;
+        text-decoration: none;
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+        transition: color 0.2s;
+      }
+      nav ul a:hover {
+        color: #fff;
+      }
+      .hero {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        min-height: 500px;
+      }
+      .hero-left {
+        background: var(--dark);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 5rem 4rem;
+      }
+      .hero-tag {
+        color: var(--red);
+        font-size: 0.75rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+      }
+      .hero-left h1 {
+        font-size: 3.5rem;
+        font-weight: 900;
+        line-height: 1.1;
+        color: #fff;
+        margin-bottom: 1.2rem;
+      }
+      .hero-left h1 em {
+        font-style: normal;
+        color: var(--red);
+      }
+      .hero-left p {
+        color: #888;
+        line-height: 1.7;
+        margin-bottom: 2rem;
+        max-width: 380px;
+      }
+      .hero-btns {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      .btn-r {
+        background: var(--red);
+        color: #fff;
+        padding: 0.8rem 2rem;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.9rem;
+        border-radius: 3px;
+      }
+      .btn-r:hover {
+        background: #a93226;
+      }
+      .btn-ghost {
+        border: 1px solid #444;
+        color: #aaa;
+        padding: 0.8rem 2rem;
+        text-decoration: none;
+        font-size: 0.9rem;
+        border-radius: 3px;
+        transition:
+          border-color 0.2s,
+          color 0.2s;
+      }
+      .btn-ghost:hover {
+        border-color: #fff;
+        color: #fff;
+      }
+      .hero-right {
+        background: var(--sand);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 9rem;
+      }
+      .section {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 4rem 3rem;
+      }
+      .sec-title {
+        font-size: 1.6rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 0.3rem;
+      }
+      .sec-title span {
+        color: var(--red);
+      }
+      .line {
+        width: 40px;
+        height: 3px;
+        background: var(--red);
+        margin-bottom: 2.5rem;
+      }
+      .rolls-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 1.5rem;
+      }
+      .roll-card {
+        background: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+        transition: transform 0.2s;
+      }
+      .roll-card:hover {
+        transform: translateY(-4px);
+      }
+      .roll-img {
+        background: var(--sand);
+        height: 150px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 4.5rem;
+      }
+      .roll-body {
+        padding: 1.2rem;
+      }
+      .roll-badge {
+        display: inline-block;
+        background: #fef2f2;
+        color: var(--red);
+        font-size: 0.68rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        padding: 0.2rem 0.6rem;
+        border-radius: 3px;
+        margin-bottom: 0.5rem;
+      }
+      .roll-name {
+        font-weight: 800;
+        font-size: 1rem;
+        margin-bottom: 0.3rem;
+      }
+      .roll-desc {
+        font-size: 0.82rem;
+        color: #999;
+        line-height: 1.5;
+        margin-bottom: 0.9rem;
+      }
+      .roll-foot {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .roll-price {
+        font-size: 1.1rem;
+        font-weight: 900;
+        color: var(--red);
+      }
+      .add-btn {
+        background: var(--dark);
+        color: #fff;
+        border: none;
+        padding: 0.4rem 0.9rem;
+        font-size: 0.78rem;
+        cursor: pointer;
+        border-radius: 3px;
+        transition: background 0.2s;
+      }
+      .add-btn:hover {
+        background: var(--red);
+      }
+      .promo {
+        background: var(--red);
+        color: #fff;
+        padding: 3rem 3rem;
+        text-align: center;
+      }
+      .promo h2 {
+        font-size: 2rem;
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+      }
+      .promo p {
+        opacity: 0.85;
+        font-size: 0.95rem;
+      }
+      footer {
+        background: var(--dark);
+        color: #444;
+        text-align: center;
+        padding: 2rem;
+        font-size: 0.78rem;
+      }
+      footer span {
+        color: var(--red);
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="logo">SAKURA <span>SUSHI</span></div>
+      <ul>
+        <a href="#">Меню</a>
+        <a href="#">Доставка</a>
+        <a href="#">Акции</a>
+        <a href="#">Контакты</a>
+      </ul>
+    </nav>
+    <div class="hero">
+      <div class="hero-left">
+        <div class="hero-tag">&#127800; Японская кухня</div>
+        <h1>Свежие роллы<br /><em>с доставкой</em><br />за 45 минут</h1>
+        <p>
+          Готовим из охлаждённой рыбы, японского риса и соусов собственного
+          рецепта.
+        </p>
+        <div class="hero-btns">
+          <a href="#menu" class="btn-r">Заказать сейчас</a>
+          <a href="#" class="btn-ghost">Смотреть меню</a>
+        </div>
+      </div>
+      <div class="hero-right">🍣</div>
+    </div>
+    <div class="section" id="menu">
+      <div class="sec-title">Наши <span>Роллы</span></div>
+      <div class="line"></div>
+      <div class="rolls-grid">
+        <div class="roll-card">
+          <div class="roll-img">🌊</div>
+          <div class="roll-body">
+            <span class="roll-badge">Хит продаж</span>
+            <div class="roll-name">Лосось Классик</div>
+            <div class="roll-desc">
+              Лосось, сливочный сыр, огурец, нори, кунжут
+            </div>
+            <div class="roll-foot">
+              <span class="roll-price">420 ₽</span
+              ><button class="add-btn">+ В корзину</button>
+            </div>
+          </div>
+        </div>
+        <div class="roll-card">
+          <div class="roll-img">🔥</div>
+          <div class="roll-body">
+            <span class="roll-badge">Острый</span>
+            <div class="roll-name">Спайси Тунец</div>
+            <div class="roll-desc">Тунец, острый майонез, авокадо, тобико</div>
+            <div class="roll-foot">
+              <span class="roll-price">480 ₽</span
+              ><button class="add-btn">+ В корзину</button>
+            </div>
+          </div>
+        </div>
+        <div class="roll-card">
+          <div class="roll-img">🥑</div>
+          <div class="roll-body">
+            <span class="roll-badge">Вегетарианский</span>
+            <div class="roll-name">Авокадо Мисо</div>
+            <div class="roll-desc">
+              Авокадо, огурец, морковь, крем-сыр, мисо-соус
+            </div>
+            <div class="roll-foot">
+              <span class="roll-price">360 ₽</span
+              ><button class="add-btn">+ В корзину</button>
+            </div>
+          </div>
+        </div>
+        <div class="roll-card">
+          <div class="roll-img">🦐</div>
+          <div class="roll-body">
+            <span class="roll-badge">Запечённый</span>
+            <div class="roll-name">Эби Темпура</div>
+            <div class="roll-desc">
+              Креветка темпура, сыр, зелёный лук, унаги-соус
+            </div>
+            <div class="roll-foot">
+              <span class="roll-price">510 ₽</span
+              ><button class="add-btn">+ В корзину</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="promo">
+      <h2>&#127381; Сет «Вечер на двоих»</h2>
+      <p>
+        48 штук роллов + мисо-суп + эдамаме — 1490 ₽ &nbsp;|&nbsp; {{DOMAIN}}
+      </p>
+    </div>
+    <footer>&copy; 2026 <span>SAKURA SUSHI</span> — {{DOMAIN}}</footer>
+  </body>
+</html>

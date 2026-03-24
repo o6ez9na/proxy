@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NEXUS CLUB — Компьютерный клуб {{DOMAIN}}</title>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --neon: #00f5d4;
+        --purple: #7c3aed;
+        --dark: #0a0a0f;
+        --card: #12121a;
+      }
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background: var(--dark);
+        color: #e2e2f0;
+        min-height: 100vh;
+      }
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.2rem 3rem;
+        background: rgba(18, 18, 26, 0.95);
+        border-bottom: 1px solid rgba(0, 245, 212, 0.15);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+      .nav-logo {
+        font-size: 1.5rem;
+        font-weight: 900;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--neon);
+        text-shadow: 0 0 20px rgba(0, 245, 212, 0.6);
+      }
+      .nav-links a {
+        color: #888;
+        text-decoration: none;
+        margin-left: 2rem;
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: var(--neon);
+      }
+      .hero {
+        padding: 5rem 3rem;
+        text-align: center;
+        background: radial-gradient(
+          ellipse at center,
+          rgba(124, 58, 237, 0.15) 0%,
+          transparent 70%
+        );
+      }
+      .hero-badge {
+        display: inline-block;
+        border: 1px solid var(--neon);
+        color: var(--neon);
+        font-size: 0.73rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        padding: 0.3rem 1rem;
+        border-radius: 50px;
+        margin-bottom: 2rem;
+      }
+      .hero h1 {
+        font-size: 4rem;
+        font-weight: 900;
+        line-height: 1.05;
+        margin-bottom: 1.2rem;
+        text-transform: uppercase;
+        letter-spacing: -1px;
+      }
+      .hero h1 span {
+        color: var(--neon);
+        text-shadow: 0 0 30px rgba(0, 245, 212, 0.5);
+      }
+      .hero p {
+        color: #888;
+        font-size: 1.05rem;
+        max-width: 540px;
+        margin: 0 auto 2.5rem;
+        line-height: 1.7;
+      }
+      .hero-btns {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .btn-primary {
+        background: var(--neon);
+        color: #000;
+        padding: 0.85rem 2.5rem;
+        font-weight: 800;
+        text-decoration: none;
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        transition: box-shadow 0.2s;
+      }
+      .btn-primary:hover {
+        box-shadow: 0 0 20px rgba(0, 245, 212, 0.5);
+      }
+      .btn-secondary {
+        border: 1px solid #444;
+        color: #ccc;
+        padding: 0.85rem 2.5rem;
+        text-decoration: none;
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+        transition: border-color 0.2s;
+      }
+      .btn-secondary:hover {
+        border-color: var(--neon);
+        color: var(--neon);
+      }
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        background: rgba(0, 245, 212, 0.08);
+        border: 1px solid rgba(0, 245, 212, 0.08);
+        max-width: 700px;
+        margin: 4rem auto;
+      }
+      .stat {
+        background: var(--dark);
+        padding: 2.5rem 1rem;
+        text-align: center;
+      }
+      .stat-num {
+        font-size: 2.8rem;
+        font-weight: 900;
+        color: var(--neon);
+        line-height: 1;
+      }
+      .stat-label {
+        font-size: 0.78rem;
+        color: #555;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-top: 0.4rem;
+      }
+      .section {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 3rem;
+      }
+      .section-head {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2.5rem;
+      }
+      .section-head h2 {
+        font-size: 1.5rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+      .section-head::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: rgba(0, 245, 212, 0.15);
+      }
+      .pcs-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 1.5rem;
+      }
+      .pc-card {
+        background: var(--card);
+        border: 1px solid rgba(0, 245, 212, 0.1);
+        padding: 1.8rem;
+        transition:
+          border-color 0.2s,
+          transform 0.2s;
+      }
+      .pc-card:hover {
+        border-color: var(--neon);
+        transform: translateY(-3px);
+      }
+      .pc-tag {
+        font-size: 0.7rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--neon);
+        margin-bottom: 0.8rem;
+      }
+      .pc-name {
+        font-size: 1.2rem;
+        font-weight: 800;
+        margin-bottom: 0.4rem;
+      }
+      .pc-spec {
+        font-size: 0.82rem;
+        color: #666;
+        line-height: 1.6;
+        margin-bottom: 1.2rem;
+      }
+      .pc-price {
+        font-size: 1.4rem;
+        font-weight: 900;
+        color: var(--neon);
+      }
+      .pc-price small {
+        font-size: 0.75rem;
+        color: #555;
+        font-weight: 400;
+      }
+      footer {
+        border-top: 1px solid rgba(0, 245, 212, 0.08);
+        text-align: center;
+        padding: 2rem;
+        font-size: 0.78rem;
+        color: #333;
+        margin-top: 2rem;
+      }
+      footer span {
+        color: var(--neon);
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-logo">Nexus Club</div>
+      <div class="nav-links">
+        <a href="#">Тарифы</a>
+        <a href="#">Турниры</a>
+        <a href="#">Бронь</a>
+        <a href="#">Контакты</a>
+      </div>
+    </nav>
+    <div class="hero">
+      <div class="hero-badge">&#9679; Сейчас онлайн: 42 игрока</div>
+      <h1>Следующий уровень<br /><span>начинается здесь</span></h1>
+      <p>
+        Топовые сборки, 240 Гц мониторы, 1 Гбит/с интернет и атмосфера, которая
+        заряжает на победу.
+      </p>
+      <div class="hero-btns">
+        <a href="#" class="btn-primary">Забронировать место</a>
+        <a href="#" class="btn-secondary">Тарифы</a>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-num">128</div>
+        <div class="stat-label">Посадочных мест</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">240</div>
+        <div class="stat-label">Гц мониторы</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">1 Гбит</div>
+        <div class="stat-label">Интернет</div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-head">
+        <h2>Наши <span style="color: var(--neon)">Зоны</span></h2>
+      </div>
+      <div class="pcs-grid">
+        <div class="pc-card">
+          <div class="pc-tag">&#9651; Стандарт</div>
+          <div class="pc-name">NEXUS BASE</div>
+          <div class="pc-spec">
+            RTX 3060 · i5-12400F · 16GB RAM<br />144 Гц / 1080p · Игровая
+            гарнитура
+          </div>
+          <div class="pc-price">80 ₽ <small>/ час</small></div>
+        </div>
+        <div class="pc-card">
+          <div class="pc-tag">&#9651;&#9651; PRO</div>
+          <div class="pc-name">NEXUS PRO</div>
+          <div class="pc-spec">
+            RTX 4070 · i7-13700K · 32GB RAM<br />240 Гц / 1440p · Механическая
+            клавиатура
+          </div>
+          <div class="pc-price">130 ₽ <small>/ час</small></div>
+        </div>
+        <div class="pc-card">
+          <div class="pc-tag">&#9651;&#9651;&#9651; VIP</div>
+          <div class="pc-name">NEXUS VIP</div>
+          <div class="pc-spec">
+            RTX 4090 · i9-14900K · 64GB RAM<br />360 Гц / 4K · Отдельная кабинка
+          </div>
+          <div class="pc-price">200 ₽ <small>/ час</small></div>
+        </div>
+      </div>
+    </div>
+    <footer>&copy; 2026 <span>NEXUS CLUB</span> — {{DOMAIN}}</footer>
+  </body>
+</html>

@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BURNER — Бургерная {{DOMAIN}}</title>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --fire: #e83b1e;
+        --coal: #1a1a1a;
+        --cream: #fdf6ee;
+        --sand: #f0e8d8;
+      }
+      body {
+        font-family: "Arial Black", Arial, sans-serif;
+        background: var(--cream);
+        color: var(--coal);
+      }
+      nav {
+        background: var(--coal);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 3rem;
+      }
+      .nav-logo {
+        color: var(--fire);
+        font-size: 1.6rem;
+        font-weight: 900;
+        letter-spacing: -1px;
+      }
+      .nav-logo span {
+        color: #fff;
+      }
+      .nav-links a {
+        color: #aaa;
+        text-decoration: none;
+        margin-left: 1.8rem;
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        font-family: Arial, sans-serif;
+      }
+      .nav-links a:hover {
+        color: var(--fire);
+      }
+      .hero {
+        background: var(--coal);
+        padding: 6rem 3rem 5rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-tag {
+        color: var(--fire);
+        font-family: Arial, sans-serif;
+        font-size: 0.8rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+      }
+      .hero h1 {
+        font-size: 4.5rem;
+        color: #fff;
+        line-height: 1;
+        margin-bottom: 0.5rem;
+        font-style: italic;
+      }
+      .hero h1 em {
+        color: var(--fire);
+        font-style: normal;
+      }
+      .hero .sub {
+        color: #777;
+        font-family: Arial, sans-serif;
+        font-size: 1.05rem;
+        font-weight: normal;
+        margin-top: 1rem;
+        margin-bottom: 2.5rem;
+      }
+      .cta {
+        display: inline-block;
+        background: var(--fire);
+        color: #fff;
+        padding: 1rem 3rem;
+        font-size: 1rem;
+        font-weight: 900;
+        letter-spacing: 2px;
+        text-decoration: none;
+        text-transform: uppercase;
+        clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+        transition: background 0.2s;
+      }
+      .cta:hover {
+        background: #c62f14;
+      }
+      .section {
+        padding: 4rem 3rem;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+      .section-title {
+        font-size: 1.8rem;
+        margin-bottom: 0.3rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .section-title span {
+        color: var(--fire);
+      }
+      .divider {
+        width: 50px;
+        height: 3px;
+        background: var(--fire);
+        margin-bottom: 2.5rem;
+      }
+      .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+      }
+      .card {
+        background: #fff;
+        border-radius: 4px;
+        overflow: hidden;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+      .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(232, 59, 30, 0.12);
+      }
+      .card-img {
+        background: var(--sand);
+        height: 160px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 5rem;
+      }
+      .card-body {
+        padding: 1.2rem;
+      }
+      .card-name {
+        font-size: 1.1rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        margin-bottom: 0.3rem;
+      }
+      .card-desc {
+        font-family: Arial, sans-serif;
+        font-size: 0.85rem;
+        color: #777;
+        line-height: 1.5;
+        margin-bottom: 0.8rem;
+      }
+      .card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .price {
+        color: var(--fire);
+        font-size: 1.2rem;
+        font-weight: 900;
+      }
+      .order-btn {
+        background: var(--coal);
+        color: #fff;
+        padding: 0.4rem 1rem;
+        font-size: 0.78rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        text-decoration: none;
+        transition: background 0.2s;
+      }
+      .order-btn:hover {
+        background: var(--fire);
+      }
+      .banner {
+        background: var(--fire);
+        padding: 3.5rem 3rem;
+        text-align: center;
+        color: #fff;
+      }
+      .banner h2 {
+        font-size: 2.2rem;
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+      }
+      .banner p {
+        font-family: Arial, sans-serif;
+        font-size: 1rem;
+        opacity: 0.85;
+      }
+      footer {
+        background: var(--coal);
+        color: #555;
+        text-align: center;
+        padding: 2rem;
+        font-family: Arial, sans-serif;
+        font-size: 0.8rem;
+      }
+      footer span {
+        color: var(--fire);
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-logo">BURN<span>ER</span></div>
+      <div class="nav-links">
+        <a href="#">Меню</a>
+        <a href="#">Доставка</a>
+        <a href="#">О нас</a>
+        <a href="#">Контакты</a>
+      </div>
+    </nav>
+    <div class="hero">
+      <div class="hero-tag">&#9889; Горячие бургеры каждый день</div>
+      <h1>БУРГЕРЫ<br /><em>ИЗ ОГНЯ</em></h1>
+      <p class="sub">Только свежие котлеты, живые овощи и булки из пекарни</p>
+      <a href="#menu" class="cta">Смотреть меню</a>
+    </div>
+    <div class="section" id="menu">
+      <div class="section-title">Наше <span>Меню</span></div>
+      <div class="divider"></div>
+      <div class="menu-grid">
+        <div class="card">
+          <div class="card-img">🍔</div>
+          <div class="card-body">
+            <div class="card-name">Classic Burner</div>
+            <div class="card-desc">
+              Говяжья котлета 200г, чеддер, соус тысячи остров, хрустящий лук
+            </div>
+            <div class="card-footer">
+              <span class="price">349 ₽</span
+              ><a href="#" class="order-btn">Заказать</a>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-img">🌶️</div>
+          <div class="card-body">
+            <div class="card-name">Fire Devil</div>
+            <div class="card-desc">
+              Острая котлета, перец халапеньо, горчица, маринованные огурцы
+            </div>
+            <div class="card-footer">
+              <span class="price">389 ₽</span
+              ><a href="#" class="order-btn">Заказать</a>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-img">🥓</div>
+          <div class="card-body">
+            <div class="card-name">Smoky Bacon</div>
+            <div class="card-desc">
+              Двойная котлета, хрустящий бекон, BBQ-соус, карамельный лук
+            </div>
+            <div class="card-footer">
+              <span class="price">449 ₽</span
+              ><a href="#" class="order-btn">Заказать</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="banner">
+      <h2>Доставка за 30 минут</h2>
+      <p>Или следующий заказ — за наш счёт &nbsp;|&nbsp; {{DOMAIN}}</p>
+    </div>
+    <footer>&copy; 2026 <span>BURNER</span> — {{DOMAIN}}</footer>
+  </body>
+</html>
